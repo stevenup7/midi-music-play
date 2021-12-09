@@ -1,0 +1,21 @@
+from enum import Enum
+
+C_MINUS_1 = 0
+G9 = 127
+NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+MIDI_NOTE_RANGE = (C_MINUS_1, G9)
+
+WHOLE = 2
+HALF = 1
+
+
+class SCALE_TYPES(Enum):
+    MAJOR = 1
+    MINOR = 2
+
+
+OFFSETS = {
+    SCALE_TYPES.MAJOR: [0, WHOLE, WHOLE, HALF, WHOLE, WHOLE, WHOLE, HALF],
+    SCALE_TYPES.MINOR: [0, WHOLE, HALF, WHOLE, WHOLE, HALF, WHOLE, WHOLE],
+}
+SCALE_TYPE_NAMES = {SCALE_TYPES.MAJOR: "Minor", SCALE_TYPES.MINOR: "Major"}
