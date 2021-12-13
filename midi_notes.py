@@ -4,7 +4,7 @@
 
 import math
 from keyboard import Keyboard
-from music_constants import SCALE_TYPES, NOTE_NAMES, OFFSETS
+from music_constants import SCALE_TYPES, NOTE_NAMES, SCALE_OFFSETS
 
 
 class Note:
@@ -32,7 +32,7 @@ class Scale:
     def get_notes(self):
         offset = NOTE_NAMES.index(self.root)
         for n in range(0, 8):
-            offset = offset + OFFSETS[self.scale_type][n]
+            offset = offset + SCALE_OFFSETS[self.scale_type][n].value
             self.notes.append(NOTE_NAMES[offset % 12])
 
     def __repr__(self):

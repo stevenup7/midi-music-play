@@ -20,13 +20,14 @@ class SCALE_TYPES(Enum):
 
 # how many semitones per step in a scale
 class SCALE_OFFSETS(Enum):
-    WHOLE = 2
+    NONE = 0
     HALF = 1
+    WHOLE = 2
 
 
 SCALE_OFFSETS = {
     SCALE_TYPES.MAJOR: [
-        0,
+        SCALE_OFFSETS.NONE,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.HALF,
@@ -36,7 +37,7 @@ SCALE_OFFSETS = {
         SCALE_OFFSETS.HALF,
     ],
     SCALE_TYPES.MINOR: [
-        0,
+        SCALE_OFFSETS.NONE,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.HALF,
         SCALE_OFFSETS.WHOLE,
@@ -46,7 +47,7 @@ SCALE_OFFSETS = {
         SCALE_OFFSETS.WHOLE,
     ],
     SCALE_TYPES.IONIAN: [
-        0,
+        SCALE_OFFSETS.NONE,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.HALF,
@@ -56,7 +57,7 @@ SCALE_OFFSETS = {
         SCALE_OFFSETS.HALF,
     ],
     SCALE_TYPES.DORIAN: [
-        0,
+        SCALE_OFFSETS.NONE,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.HALF,
         SCALE_OFFSETS.WHOLE,
@@ -66,7 +67,7 @@ SCALE_OFFSETS = {
         SCALE_OFFSETS.WHOLE,
     ],
     SCALE_TYPES.PHYGIAN: [
-        0,
+        SCALE_OFFSETS.NONE,
         SCALE_OFFSETS.HALF,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.WHOLE,
@@ -76,7 +77,7 @@ SCALE_OFFSETS = {
         SCALE_OFFSETS.WHOLE,
     ],
     SCALE_TYPES.LYDIAN: [
-        0,
+        SCALE_OFFSETS.NONE,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.WHOLE,
@@ -86,7 +87,7 @@ SCALE_OFFSETS = {
         SCALE_OFFSETS.HALF,
     ],
     SCALE_TYPES.MIXOLYDIAN: [
-        0,
+        SCALE_OFFSETS.NONE,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.HALF,
@@ -96,7 +97,7 @@ SCALE_OFFSETS = {
         SCALE_OFFSETS.WHOLE,
     ],
     SCALE_TYPES.AEOLIAN: [
-        0,
+        SCALE_OFFSETS.NONE,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.HALF,
         SCALE_OFFSETS.WHOLE,
@@ -106,7 +107,7 @@ SCALE_OFFSETS = {
         SCALE_OFFSETS.WHOLE,
     ],
     SCALE_TYPES.LOCRIAN: [
-        0,
+        SCALE_OFFSETS.NONE,
         SCALE_OFFSETS.HALF,
         SCALE_OFFSETS.WHOLE,
         SCALE_OFFSETS.WHOLE,

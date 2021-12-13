@@ -3,24 +3,27 @@ from midi_bars import MidiBar
 from music_constants import NOTE_NAMES, SCALE_TYPES
 import random
 import time
+import math
+from scipy.stats import halfnorm
 
+skewed_normal_t = halfnorm.rvs(0, 0.3, 5000)
+skewed_normal = []
+# there has to be a better way but this works
+for i, v in enumerate(skewed_normal_t):
+    if v < 1:
+        skewed_normal.append(v)
 
-RANGES = {
-    0: 1,
-    1: 1,
-    2: 1,
-    3: 1,
-    4: 1,
-    5: 1,
-    6: 2,
-    7: 2,
-    8: 2,
-    9: 3,
-    10: 3,
-}
+#  |_
+#  | |
+#  | |_mylar
+#  | | |
+#  | | |
+#  | | |_
+#  | | | |_
+#  | | | | |_ _
+#  |_|_|_|_|_|_|____
 
-# we will select from this list using a normal distribution
-note_distributions = [2, 7, 3, 1, 5, 4, 6]
+note_choosing_functions = {}
 
 
 class MelodyMachineGenes:
@@ -35,15 +38,16 @@ class MelodyMachineGenes:
         self.generate_random()
 
     def generate_random(self):
+        global skewed_normal
         self.bpm = random.randint(30, 300)
         self.key = random.choice(NOTE_NAMES)
         self.scale_type = random.choice(list(SCALE_TYPES))
+        self.scale = Scale(self.key, self.scale_type)
         # skew towards 1 octave
-        self.range = RANGES[random.randint(1, 10)]
+        self.range = math.floor(random.choice(skewed_normal) * 3) + 1
+
         self.length = random.randint(1, 4) * 16
-        self.note_distribution = []
-        for i in range(0, random.randint(self.range * 8)):
-            print(i)
+        self.notes_ordered = random.sample(self.scale.notes, len(self.scale.notes))
 
 
 class MelodyMachine:
@@ -51,7 +55,7 @@ class MelodyMachine:
         self.bar = MidiBar()
         self.create_genes()
         self.ppqnTime = 60 / self.genes.bpm / 24
-        self.scale = Scale(self.genes.key, self.genes.scale_type)
+
         self.length = self.genes.length
         self.generate()
 
@@ -65,8 +69,9 @@ class MelodyMachine:
     def generate_notes(self):
         print("generating - list of notes")
         self.notelist = []
+
         for n in range(0, self.genes.length):
-            r = self.scale.notes[min(round(random.gauss(4, 4 / 3)), 7)]
+            r = self.genes.scale.notes[min(round(random.gauss(4, 4 / 3)), 7)]
             self.notelist.append(r)
 
     def generate_gates(self):
@@ -86,9 +91,6 @@ class MelodyMachinePlayer:
         note = None
 
         while True:
-
-            time.sleep(self.machine.ppqnTime)
-
             for i in range(0, self.machine.length):
                 if isOn:
                     self.midi_note_off(note)
@@ -96,22 +98,19 @@ class MelodyMachinePlayer:
                     isOn = True
                     note = self.machine.notelist[i]
                     self.midi_note_on(note)
-
-    def get_midi_player(self):
-        for p in mido.get_output_names():
-            return print(p)
+                time.sleep(self.machine.ppqnTime)
 
     def midi_note_on(self, note):
         print(f"note {note} on")
 
     def midi_note_off(self, note):
-        print(f"note {note} off")
+        pass
+        # print(f"note {note} off")
 
 
 def init():
     mm = MelodyMachine()
     mp = MelodyMachinePlayer(mm)
-    mp.get_midi_player()
     mp.midi_play()
 
 
