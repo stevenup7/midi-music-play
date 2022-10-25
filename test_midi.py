@@ -1,6 +1,7 @@
 from midi_notes import MidiNotes, Scale, SCALE_TYPES
 
 
+
 def test_generation():
     m = MidiNotes()
     assert m.note_map["C4"].note == "C"
@@ -15,3 +16,19 @@ def test_scale():
     assert s.notes == ["C", "D", "E", "F", "G", "A", "B", "C"]
     s = Scale("D", SCALE_TYPES.MINOR)
     assert s.notes == ["D", "E", "F", "G", "A", "A#", "C", "D"]
+
+
+def test_keyboard():
+    m = MidiNotes()
+
+    print(" \r\n ")
+    print("G MINOR ON DIGI")
+    s = Scale("G", SCALE_TYPES.MINOR)
+    k = Keyboard()
+    print(k.render(s.notes))
+
+    print("G MAJOR ON KEYBOARD")
+    s2 = Scale("G", SCALE_TYPES.MAJOR)
+    k = Keyboard()
+    print(k.render(s2.notes))
+    print(" \r\n ")

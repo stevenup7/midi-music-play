@@ -3,7 +3,6 @@
 # https://www.noterepeat.com/articles/how-to/213-midi-basics-common-terms-explained
 
 import math
-from keyboard import Keyboard
 from music_constants import SCALE_TYPES, NOTE_NAMES, SCALE_OFFSETS
 
 
@@ -15,6 +14,20 @@ class Note:
         self.note = note
         self.octave = octave
         self.name = f"{self.note}{self.octave}"
+
+    def get_note(self):
+        return self.note
+
+    def set_note(self, note):
+        # TODO: error checking (char A-G + sharps and flats)
+        self.note = note
+
+    def get_octave(self):
+        return self.octave
+
+    def set_octave(self, octave):
+        # TODO: error checking (integer)
+        self.octave = octave
 
     def __repr__(self):
         return (
@@ -55,23 +68,3 @@ class MidiNotes:
             n = Note(midinote=midinote, octave=octave, note=notename)
             self.midi_map[midinote] = n
             self.note_map[n.name] = n
-
-
-def init():
-    m = MidiNotes()
-
-    print(" \r\n ")
-    print("G MINOR ON DIGI")
-    s = Scale("G", SCALE_TYPES.MINOR)
-    k = Keyboard()
-    print(k.render(s.notes))
-
-    print("G MAJOR ON KEYBOARD")
-    s2 = Scale("G", SCALE_TYPES.MAJOR)
-    k = Keyboard()
-    print(k.render(s2.notes))
-    print(" \r\n ")
-
-
-if __name__ == "__main__":
-    init()
